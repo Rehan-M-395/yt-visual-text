@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidepanel {
+    height: 100vh;
+    padding: 16px;
+    background: #0f172a;
+    color: white;
+    box-sizing: border-box;
+}
+
+.sidepanel h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.sidepanel p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.sidepanel textarea {
+    width: 100%;
+    height: calc(100vh - 120px);
+    margin-top: 12px;
+    padding: 10px;
+    resize: none;
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 13px;
+}
