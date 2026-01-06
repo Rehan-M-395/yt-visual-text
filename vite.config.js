@@ -21,5 +21,6 @@ export default defineConfig({
         assetFileNames: "[name]/assets/[name].[ext]"
       }
     }
-  }
+  },
+  base: "./",
 });

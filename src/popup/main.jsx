@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import Popup from "./Popup";
 import "./popup.css";
 
-const root = ReactDOM.createRoot(
-    document.getElementById("root")
-);
+const rootEl = document.getElementById("root");
 
-root.render(
+console.log("ROOT ELEMENT:", rootEl);
+
+ReactDOM.createRoot(rootEl).render(
     <React.StrictMode>
         <Popup />
     </React.StrictMode>
