@@ -1,21 +1,36 @@
-function SidePanel() {
-    const openSidePanel = async () => {
-        const [tab] = await chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        });
+import { useEffect, useState } from "react";
+import Tesseract from "tesseract.js";
 
-        if (tab?.id) {
-            chrome.sidePanel.open({ tabId: tab.id });
-        }
+function SidePanel() {
+    const [text, setText] = useState("Pause video to extract text...");
+
+    useEffect(() => {
+        chrome.runtime.onMessage.addListener((msg) => {
+            if (msg.type === "VIDEO_PAUSED") {
+                extractText();
+            }
+        });
+    }, []);
+
+    const extractText = () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+            chrome.tabs.sendMessage(
+                tab.id,
+                { type: "EXTRACT_FRAME_TEXT" },
+                async (res) => {
+                    if (!res?.image) return;
+
+                    const { data } = await Tesseract.recognize(res.image, "eng");
+                    setText(data.text || "No text detected");
+                }
+            );
+        });
     };
 
     return (
-        <div className="popup">
-            <h3>YT Visual Text</h3>
-            <button onClick={openSidePanel}>
-                Open pleaas Side Panel
-            </button>
+        <div className="panel">
+            <h3>Auto OCR</h3>
+            <pre>{text}</pre>
         </div>
     );
 }
