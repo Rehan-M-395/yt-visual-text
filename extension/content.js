@@ -47,16 +47,39 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     sendResponse({ image: processedImage });
 });
 
+console.log("[YT Visual Text] content.js loaded");
+
 let lastPausedTime = null;
+let currentVideo = null;
 
-const video = document.querySelector("video");
+function attachPauseListener(video) {
+    if (video === currentVideo) return; // already attached
+    currentVideo = video;
 
-if (video) {
+    console.log("[YT Visual Text] Attaching pause listener");
+
     video.addEventListener("pause", () => {
-        // avoid duplicate triggers
+        console.log("[YT Visual Text] Video paused");
+
         if (video.currentTime === lastPausedTime) return;
         lastPausedTime = video.currentTime;
 
-        chrome.runtime.sendMessage({ type: "VIDEO_PAUSED" });
+        try {
+            chrome.runtime.sendMessage({ type: "VIDEO_PAUSED" });
+        } catch (e) {
+            console.warn("[YT Visual Text] Extension context invalidated");
+        }
     });
 }
+
+// Observe DOM changes
+const observer = new MutationObserver(() => {
+    const video = document.querySelector("video");
+    if (video) attachPauseListener(video);
+});
+
+// Start observing
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});

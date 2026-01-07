@@ -27,6 +27,19 @@ function SidePanel() {
         });
     };
 
+    useEffect(() => {
+        chrome.runtime.onMessage.addListener((msg) => {
+            if (msg.type === "VIDEO_PAUSED") {
+                console.log("Video paused message received");
+            }
+        })
+    }, []);
+
+    async function runOCR(image) {
+        const result = await Tesseract.recognize(image, "eng");
+        console.log(result.data.text);
+    }
+
     return (
         <div className="panel">
             <h3>Auto OCR</h3>
