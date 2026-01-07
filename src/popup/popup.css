@@ -1,26 +1,31 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    background: #111;
 }
 
 .popup {
-    width: 350px;
-    min-height: 200px;
-    padding: 12px;
-    background: #111827;
+    width: 220px;
+    padding: 14px;
+    text-align: center;
+    font-family: Arial, sans-serif;
     color: white;
 }
 
-button {
-    margin-top: 12px;
-    padding: 8px 12px;
-    background: #2563eb;
-    color: white;
+.popup h3 {
+    margin-bottom: 12px;
+}
+
+.popup button {
+    width: 100%;
+    padding: 10px;
+    background: #ff0000;
     border: none;
     border-radius: 6px;
+    color: white;
+    font-size: 14px;
     cursor: pointer;
 }
 
-button:hover {
-    background: #1d4ed8;
+.popup button:hover {
+    background: #cc0000;
 }

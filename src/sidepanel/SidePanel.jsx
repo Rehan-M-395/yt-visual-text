@@ -1,4 +1,4 @@
-function Popup() {
+function SidePanel() {
     const openSidePanel = async () => {
         const [tab] = await chrome.tabs.query({
             active: true,
@@ -14,10 +14,10 @@ function Popup() {
         <div className="popup">
             <h3>YT Visual Text</h3>
             <button onClick={openSidePanel}>
-                Open Side Panel
+                Open pleaas Side Panel
             </button>
         </div>
     );
 }
 
-export default Popup;
+export default SidePanel;
