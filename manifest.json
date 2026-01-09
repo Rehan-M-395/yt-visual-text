@@ -17,5 +17,12 @@
   
     "side_panel": {
       "default_path": "public/sidepanel.html"
+    },
+    "content_scripts": [
+    {
+        "matches": ["https://www.youtube.com/*"],
+        "js": ["extension/content.js"]
     }
+    ]
+
   }  
