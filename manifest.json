@@ -4,25 +4,25 @@
     "version": "0.1.0",
   
     "permissions": ["sidePanel", "activeTab"],
-  
     "host_permissions": ["https://www.youtube.com/*"],
   
     "action": {
-        "default_popup": "public/popup.html"
+      "default_popup": "dist/public/popup.html"
+    },
+
+    "side_panel": {
+      "default_path": "dist/public/sidepanel.html"
     },
   
     "background": {
       "service_worker": "extension/background.js"
     },
   
-    "side_panel": {
-      "default_path": "public/sidepanel.html"
-    },
     "content_scripts": [
-    {
+      {
         "matches": ["https://www.youtube.com/*"],
         "js": ["extension/content.js"]
-    }
+      }
     ]
-
-  }  
+  }
+  
