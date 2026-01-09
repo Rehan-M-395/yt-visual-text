@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import base64
 import uuid
 import os
+import easyocr
+from PIL import Image
 
 app = FastAPI()
 
@@ -15,6 +17,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 🔥 Load EasyOCR ONCE (IMPORTANT)
+reader = easyocr.Reader(['en'], gpu=False)
 
 class ImageReq(BaseModel):
     image: str
@@ -37,9 +42,16 @@ def receive_frame(req: ImageReq):
     with open(filename, "wb") as f:
         f.write(image_bytes)
 
+    # 6. OCR with EasyOCR
+    results = reader.readtext(filename, detail=0, paragraph=True)
+    print("OCR raw results:", results)
+    text = " ".join(results)
+
     print("Image saved at:", filename)
+    print("OCR text:", text)
 
     return {
-        "status": "saved",
-        "file": filename
+        "status": "success",
+        "file": filename,
+        "text": text
     }
