@@ -2,35 +2,20 @@
     "manifest_version": 3,
     "name": "YT Visual Text",
     "version": "0.1.0",
-    "description": "Extract visible text from paused YouTube videos",
-    "permissions": [
-        "activeTab",
-        "scripting",
-        "sidePanel"
-    ],
-    "host_permissions": [
-        "https://www.youtube.com/*"
-    ],
+  
+    "permissions": ["sidePanel", "activeTab"],
+  
+    "host_permissions": ["https://www.youtube.com/*"],
+  
     "action": {
-        "default_popup": "dist/public/popup.html"
+        "default_popup": "public/popup.html"
     },
-    "side_panel": {
-        "default_path": "dist/public/sidepanel.html"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://www.youtube.com/*"
-            ],
-            "js": [
-                "extension/content.js"
-            ]
-        }
-    ],
-    "content_security_policy": {
-        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
-    },
+  
     "background": {
-        "service_worker": "background.js"
+      "service_worker": "extension/background.js"
+    },
+  
+    "side_panel": {
+      "default_path": "public/sidepanel.html"
     }
-}
+  }  
