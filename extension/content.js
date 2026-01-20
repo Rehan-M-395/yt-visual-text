@@ -7,6 +7,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         return;
       }
   
+      // Pause if playing
       if (!video.paused) {
         video.pause();
       }
@@ -19,8 +20,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       ctx.drawImage(video, 0, 0);
   
       const image = canvas.toDataURL("image/png");
-      sendResponse({ image });
   
-      return true;
+      sendResponse({ image });
+      return true; // important
     }
-  });  
+  });
+  
